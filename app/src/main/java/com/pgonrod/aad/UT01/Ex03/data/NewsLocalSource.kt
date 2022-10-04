@@ -24,7 +24,9 @@ class NewsLocalSource(val sharedPref:SharedPreferences) {
         return gson.fromJson(jsonNews, News::class.java)
     }
     fun setNewsList(newsList: MutableList<News>){
-        newsList
+        newsList.forEach {
+            news ->
+        }
     }
 
     fun findAll() : MutableList<News>{
