@@ -7,6 +7,8 @@ import com.pgonrod.aad.UT01.Ex03.domain.News
 
 class NewsLocalSource(val sharedPref:SharedPreferences) {
 
+    private val gson = Gson()
+
     fun setNews(news: News){
         val gson = Gson ()
         val jsonNews = gson.toJson(news, News::class.java)
@@ -23,13 +25,22 @@ class NewsLocalSource(val sharedPref:SharedPreferences) {
 
         return gson.fromJson(jsonNews, News::class.java)
     }
+    //for each ejecuta el metodo setNews 10 veces
     fun setNewsList(newsList: MutableList<News>){
-        newsList.forEach {
-            news ->
+        newsList.forEach { news ->
+            setNews(news)
         }
     }
-
-    fun findAll() : MutableList<News>{
-        return mutableListOf()
+    //para recorrer un mapa
+    fun findAll() : MutableList<News> {
+        val newsList = mutableListOf<News>()
+        sharedPref.all.forEach{ entry ->
+            val news = gson.fromJson(entry.value as String, News::class.java)
+            newsList.add(news)
+        }
+        return newsList
     }
+    fun findAllVKotlin() =  sharedPref.all.map { entry ->
+            gson.fromJson(entry.value as String, News::class.java)
+        }.toMutableList()
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.pgonrod.aad.UT01.Ex03.data.NewsLocalSource
 import com.pgonrod.aad.UT01.Ex03.domain.News
+import com.pgonrod.aad.UT01.Ex04.SecureSharedPreference
 
 class Ut01Ex03Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +42,10 @@ class Ut01Ex03Activity : AppCompatActivity() {
         newsLocalSource.setNewsList(newsList)
     }
 
+    private fun secure(){
+        val secure = SecureSharedPreference(applicationContext)
+        secure.saveNews(News(1, "titulo1","subtitle1", "summary1"))
+    }
 
 
 
