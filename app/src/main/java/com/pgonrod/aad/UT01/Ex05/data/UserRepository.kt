@@ -9,6 +9,7 @@ class UserRepository (val localSource: UsersLocalDataSource,
     /*
     * Primero desde local si no desde remoto
     * */
+
     fun getUsers(): List<User>{
         var users = localSource.getUsers()
         if (users == null){
@@ -17,6 +18,7 @@ class UserRepository (val localSource: UsersLocalDataSource,
         }
         return users
     }
+
     /*
     fun getUserById(userId: Int): User {
         //TODO: verificar en local sino en remote

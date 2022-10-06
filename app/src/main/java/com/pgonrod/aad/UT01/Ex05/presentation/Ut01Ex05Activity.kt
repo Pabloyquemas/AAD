@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.pgonrod.aad.R
+import com.pgonrod.aad.UT01.Ex03.domain.News
 import com.pgonrod.aad.UT01.Ex05.data.UserRepository
 import com.pgonrod.aad.UT01.Ex05.data.local.UsersLocalDataSource
 import com.pgonrod.aad.UT01.Ex05.data.remote.UsersRemoteDataSource
+import com.pgonrod.aad.UT01.Ex05.domain.User
 
 class Ut01Ex05Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,12 +21,15 @@ class Ut01Ex05Activity : AppCompatActivity() {
     private  fun init(){
         //Obtain all users from data layer
         val userRepository = UserRepository(
-            UsersLocalDataSource(
-                    getPreferences(Context.MODE_PRIVATE),
+            UsersLocalDataSource(getPreferences(Context.MODE_PRIVATE)),
             UsersRemoteDataSource()
         )
 
         val users = userRepository.getUsers()
         Log.d("@dev", "Users: $users")
+
+        val UserList: List<User> = mutableListOf<User>()
+
+        userRepository.localSource.setUserList(UserList as MutableList<User>)
     }
 }
